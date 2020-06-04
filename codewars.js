@@ -77,3 +77,46 @@ return newArr.length;
 
 console.log(checkStr(['house','hours']));
 console.log(checkStr(['dylan','dykkn']));
+
+
+
+/*
+Тестовое задание на стажировку :
+Дан массив чисел : определить в какой последовательности стоят числа (арифметическая, геометрическая, если не та и не та, то вернуть -1)
+*/
+
+
+function ArithGeo(arr) {
+
+var diff = arr[1] - arr[0]; //второй элемент массива минус первый
+var ratio = arr[1] / arr[0]; //второй элемент массива делим на первый
+
+//Изначально обе переменные равны true
+var arith = true;
+var geo = true;
+
+runLoop(arr, diff, ratio, arith, geo);
+
+return checkProgression(arith, geo);
+}
+
+
+function runLoop(arr, diff, ratio, arith, geo) {
+  //[2,4,6,8]
+  for(var i = 0; i < arr.length - 1; i++) { //циклом перебираем все элементы массива [2,4,6](за исключением последнего 8)
+      if( arr[i + 1] - arr[i] !== diff ) //Если 4 - 2 не равно 2
+        arith = false; //Это не геометрическая прогрессия
+      if(arr[i + 1] / ratio !== arr[i]) //Если при делении второго элемента на первый в результате не получается первый элемент (4/2 не равно 2)
+        geo = false; //Это не геометрическая прогрессия
+  }
+}
+
+function checkProgression(arith, geo) {
+  if(arith === true) {
+  return "Arithmetic";
+  } else if(geo === true) {
+    return"Geometric";
+  }else {
+    return -1;
+  }
+}
